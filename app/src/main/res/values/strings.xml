@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">converter</string>
+    <string name="main_buttonLength">Length</string>
+    <string name="main_buttonWeight">Weight</string>
+    <string name="main_buttonTemperature">Temperature</string>
+    <string name="main_info">Svitlana Konovalenko, PI-191</string>
+    <string name="converterInput">Enter a number</string>
+    <string name="converterOutput">Result number</string>
+    <string-array name="units">
+        <item>sm</item>
+        <item>m</item>
+        <item>km</item>
+        <item>in</item>
+        <item>mi</item>
+        <item>yd</item>
+        <item>ft</item>
+    </string-array>
+</resources>
