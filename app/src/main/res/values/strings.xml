@@ -6,7 +6,7 @@
     <string name="main_info">Svitlana Konovalenko, PI-191</string>
     <string name="converterInput">Enter a number</string>
     <string name="converterOutput">Result number</string>
-    <string-array name="units">
+    <string-array name="length">
         <item>sm</item>
         <item>m</item>
         <item>km</item>
@@ -15,4 +15,20 @@
         <item>yd</item>
         <item>ft</item>
     </string-array>
+    <string-array name="weight">
+        <item>g</item>
+        <item>kg</item>
+        <item>ton</item>
+        <item>ct</item>
+        <item>lb</item>
+        <item>pood</item>
+    </string-array>
+    <string-array name="temperature">
+        <item>K</item>
+        <item>C</item>
+        <item>F</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
