@@ -28,7 +28,7 @@
     <EditText
         android:id="@+id/outputField"
         android:layout_width="@dimen/mainButtonsWidth"
-        android:inputType="numberDecimal"
+        android:inputType="text"
         android:hint="@string/converterOutput"
         android:autofillHints="no"
         android:editable="false"
@@ -47,4 +47,5 @@
         android:layout_toEndOf="@id/outputField"
         android:layout_marginTop="@dimen/fieldHeight"
         android:spinnerMode="dropdown" />
+
 </RelativeLayout>

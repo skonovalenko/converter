@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">converter</string>
+    <string name="app_name">Converter</string>
     <string name="main_buttonLength">Length</string>
     <string name="main_buttonWeight">Weight</string>
     <string name="main_buttonTemperature">Temperature</string>
