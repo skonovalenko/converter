@@ -20,6 +20,7 @@ import ua.cn.stu.converter.R;
 public class WeightFragment extends Fragment {
     private String[] units = {"g", "kg", "ton", "ct", "lb", "pood"};
     private Spinner spinner_unitsInput;
+    private Spinner spinner_unitsOutput;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,28 +33,25 @@ public class WeightFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         spinner_unitsInput = view
                 .findViewById(R.id.spinner_unitsInput);
-        String selectedGroup = null;
-        if (savedInstanceState != null) {
-// EditText fields save/restore input automatically
-// so need to restore only Spinner data
-            selectedGroup = savedInstanceState
-                    .getString("sm");
-        }
-        setupGroupsSpinner(null);
+        spinner_unitsOutput = view
+                .findViewById(R.id.spinner_unitsOutput);
+        setupGroupsSpinner();
     }
-    private void setupGroupsSpinner(@Nullable String selectedGroup) {
+    private void setupGroupsSpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getContext(),
-                R.layout.item_group,
+                android.R.layout.simple_spinner_dropdown_item,
                 units
         );
         adapter.setDropDownViewResource(
                 android.R.layout.simple_dropdown_item_1line);
         spinner_unitsInput.setAdapter(adapter);
-        if (selectedGroup != null) {
-            int index = Arrays.asList(units).indexOf(selectedGroup);
-            if (index != -1) spinner_unitsInput.setSelection(index);
-        }
+        spinner_unitsOutput.setAdapter(adapter);
+    }
+    @NonNull
+    @Override
+    public String toString() {
+        return Arrays.toString(units);
     }
 
     public static WeightFragment newInstance() {

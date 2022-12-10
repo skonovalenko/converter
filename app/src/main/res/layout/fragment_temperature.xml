@@ -14,7 +14,7 @@
         android:imeOptions="actionDone"
         android:layout_height="@dimen/fieldHeight"
         android:layout_marginTop="200dp"
-        android:layout_marginStart="@dimen/unitsWidth"
+        android:layout_marginStart="@dimen/unitsMarginStart"
         />
 
     <Spinner
@@ -37,7 +37,7 @@
         android:layout_height="@dimen/fieldHeight"
         android:layout_below="@id/inputField"
         android:layout_marginTop="@dimen/fieldHeight"
-        android:layout_marginStart="@dimen/unitsWidth"
+        android:layout_marginStart="@dimen/unitsMarginStart"
         />
     <Spinner
         android:id="@+id/spinner_unitsOutput"

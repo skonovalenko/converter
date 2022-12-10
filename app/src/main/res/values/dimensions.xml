@@ -4,6 +4,7 @@
     <dimen name="mainButtonsHeight">200dp</dimen>
     <dimen name="menuButtonWidth">100dp</dimen>
     <dimen name="fieldHeight">50dp</dimen>
-    <dimen name="unitsWidth">80dp</dimen>
+    <dimen name="unitsWidth">100dp</dimen>
+    <dimen name="unitsMarginStart">60dp</dimen>
     <dimen name="textSize">16sp</dimen>
 </resources>
