@@ -41,8 +41,8 @@ public class ConverterService extends Service {
         }
     }
     public float computing(String inputNumber, String outputUnit, String inputUnit) {
-        long value = 0;
-        if(!inputNumber.isEmpty()) value = Long.parseLong(inputNumber);
+        float value = 0;
+        if(!inputNumber.isEmpty()) value = Float.parseFloat(inputNumber);
         UnitConverter fromUnits = null;
         boolean toConvert = true;
         float result = 0;
@@ -69,7 +69,7 @@ public class ConverterService extends Service {
                     case "yd": {
                         fromUnits = CENTIMETER.getConverterTo(YARD);
                     } break;
-                    case "foor": {
+                    case "ft": {
                         fromUnits = CENTIMETER.getConverterTo(FOOT);
                     } break;
                     default: result = value; break;
@@ -97,7 +97,7 @@ public class ConverterService extends Service {
                     case "yd": {
                         fromUnits = METER.getConverterTo(YARD);
                     } break;
-                    case "foor": {
+                    case "ft": {
                         fromUnits = METER.getConverterTo(FOOT);
                     } break;
                     default: result = value; break;
@@ -125,7 +125,7 @@ public class ConverterService extends Service {
                     case "yd": {
                         fromUnits = KILOMETER.getConverterTo(YARD);
                     } break;
-                    case "foor": {
+                    case "ft": {
                         fromUnits = KILOMETER.getConverterTo(FOOT);
                     } break;
                     default: result = value; break;
@@ -153,7 +153,7 @@ public class ConverterService extends Service {
                     case "yd": {
                         fromUnits = INCH.getConverterTo(YARD);
                     } break;
-                    case "foor": {
+                    case "ft": {
                         fromUnits = INCH.getConverterTo(FOOT);
                     } break;
                     default: result = value; break;
@@ -181,7 +181,7 @@ public class ConverterService extends Service {
                     case "yd": {
                         fromUnits = MILE.getConverterTo(YARD);
                     } break;
-                    case "foor": {
+                    case "ft": {
                         fromUnits = MILE.getConverterTo(FOOT);
                     } break;
                     default: result = value; break;
@@ -209,13 +209,13 @@ public class ConverterService extends Service {
                         toConvert = false;
                         result = value;
                     } break;
-                    case "foor": {
+                    case "ft": {
                         fromUnits = YARD.getConverterTo(FOOT);
                     } break;
                     default: result = value; break;
                 }
                 break;
-            case "foor": switch (outputUnit){
+            case "ft": switch (outputUnit){
                 case "sm":  {
                     fromUnits = FOOT.getConverterTo(CENTIMETER);
                 }
@@ -235,7 +235,7 @@ public class ConverterService extends Service {
                 case "yd": {
                     fromUnits = FOOT.getConverterTo(YARD);
                 } break;
-                case "foor": {
+                case "ft": {
                     toConvert = false;
                     result = value;
                 } break;

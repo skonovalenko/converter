@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
+
 import ua.cn.stu.converter.R;
 import ua.cn.stu.converter.databinding.ActivityMainBinding;
 import ua.cn.stu.converter.services.ConverterService;
@@ -56,6 +58,11 @@ public class ConverterActivity extends AppCompatActivity {
         Intent intent = new Intent(this,ConverterService.class);
         bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE);
     }
+    private void textChange() {
+        float result = converterService.computing(inputNumber.getText().toString(), outputUnit, inputUnit);
+        Log.d("----------------", String.valueOf(result));
+        outputNumber.setText(String.valueOf(BigDecimal.valueOf(result).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue()));
+    }
     private void setupEditText() {
         inputNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -63,9 +70,7 @@ public class ConverterActivity extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                float result = converterService.computing(inputNumber.getText().toString(), outputUnit, inputUnit);
-                Log.d("----------------", String.valueOf(result));
-                outputNumber.setText(String.format("%.3f",result));
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
             }
 
             @Override
@@ -86,6 +91,7 @@ public class ConverterActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 inputUnit = parent.getItemAtPosition(position).toString();
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
                 Toast.makeText(view.getContext(), inputUnit, Toast.LENGTH_SHORT).show();
             }
             @Override
@@ -96,6 +102,7 @@ public class ConverterActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 outputUnit = parent.getItemAtPosition(position).toString();
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
                 Toast.makeText(view.getContext(), outputUnit, Toast.LENGTH_SHORT).show();
             }
             @Override
