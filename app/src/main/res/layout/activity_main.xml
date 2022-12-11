@@ -5,4 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:id="@+id/place_holder"/>
+    android:id="@+id/place_holder">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text="@string/main_info"
+        android:textSize="@dimen/textSize"
+        android:gravity="center"
+        android:layout_marginBottom="70dp"
+        android:layout_gravity="top"
+        />
+
+    <include
+        android:id="@+id/buttons"
+        layout="@layout/main_buttons"
+        android:layout_width="@dimen/mainButtonsWidth"
+        android:layout_height="@dimen/mainButtonsHeight"
+        android:layout_gravity="center"
+        />
+</FrameLayout>

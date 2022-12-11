@@ -1,38 +1,22 @@
 package ua.cn.stu.converter;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
-import androidx.fragment.app.Fragment;
 
-import android.annotation.SuppressLint;
-
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
+import ua.cn.stu.converter.activities.ConverterActivity;
 import ua.cn.stu.converter.databinding.ActivityMainBinding;
-import ua.cn.stu.converter.fragments.LengthFragment;
-import ua.cn.stu.converter.fragments.MenuFragment;
-import ua.cn.stu.converter.fragments.TemperatureFragment;
-import ua.cn.stu.converter.fragments.WeightFragment;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
-    private Fragment menu = MenuFragment.newInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.place_holder, menu)
-                .addToBackStack("menu")
-                .commit();
     }
 
     @Override
@@ -41,27 +25,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickLength(View view) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .remove(menu)
-                .add(R.id.place_holder,LengthFragment.newInstance())
-                .addToBackStack("Length")
-                .commit();
+        Intent intent = new Intent(this, ConverterActivity.class);
+        intent.putExtra("units", "length");
+        startActivity(intent);
     }
     public void onClickWeight(View view) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .remove(menu)
-                .add(R.id.place_holder,WeightFragment.newInstance())
-                .addToBackStack("Weight")
-                .commit();
+        Intent intent = new Intent(this, ConverterActivity.class);
+        intent.putExtra("units", "weight");
+        startActivity(intent);
     }
     public void onClickTemperature(View view) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .remove(menu)
-                .add(R.id.place_holder,TemperatureFragment.newInstance())
-                .addToBackStack("Temperature")
-                .commit();
+        Intent intent = new Intent(this, ConverterActivity.class);
+        intent.putExtra("units", "temperature");
+        startActivity(intent);
     }
 }

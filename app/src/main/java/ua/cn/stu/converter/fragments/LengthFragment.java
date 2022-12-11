@@ -264,7 +264,7 @@ public class LengthFragment extends Fragment {
                         break;
                     default: result = value; break;
                 }
-                if(toConvert) result = (float) fromUnits.convert(value);
+                if(toConvert) result = (float) (fromUnits != null ? fromUnits.convert(value) : 0);
                 outputNumber.setText(String.format("%.3f",result));
             }
 

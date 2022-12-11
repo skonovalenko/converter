@@ -13,9 +13,19 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="mainButton">
         <item name="android:layout_width">@dimen/mainButtonsWidth</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/textSize</item>
     </style>
+
+    <style name="Theme.Converter.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Converter.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Converter.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
