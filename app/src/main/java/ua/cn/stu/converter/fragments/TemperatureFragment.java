@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import javax.measure.converter.UnitConverter;
@@ -61,6 +62,66 @@ public class TemperatureFragment extends Fragment {
         setupGroupsSpinner();
         setupEditText();
     }
+    private void textChange() {
+        float value = 0;
+        if(!inputNumber.getText().toString().isEmpty()) value = Float.parseFloat(inputNumber.getText().toString());
+        UnitConverter fromUnits = null;
+        boolean toConvert = true;
+        float result = 0;
+        switch (inputUnit){
+            case "K":
+                switch (outputUnit){
+                    case "K":  {
+                        toConvert = false;
+                        result = value;
+                    }
+                    break;
+                    case "C": {
+                        fromUnits = KELVIN.getConverterTo(CELSIUS);
+                    } break;
+                    case "F": {
+                        fromUnits = KELVIN.getConverterTo(FAHRENHEIT);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "C":
+                switch (outputUnit){
+                    case "K":  {
+                        fromUnits = CELSIUS.getConverterTo(KELVIN);
+                    }
+                    break;
+                    case "C": {
+                        toConvert = false;
+                        result = value;
+                    } break;
+                    case "F": {
+                        fromUnits = CELSIUS.getConverterTo(FAHRENHEIT);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "F":
+                switch (outputUnit){
+                    case "K":  {
+                        fromUnits = FAHRENHEIT.getConverterTo(KELVIN);
+                    }
+                    break;
+                    case "C": {
+                        fromUnits = FAHRENHEIT.getConverterTo(CELSIUS);
+                    } break;
+                    case "F": {
+                        toConvert = false;
+                        result = value;
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            default: result = value; break;
+        }
+        if(toConvert) result = (float) fromUnits.convert(value);
+        outputNumber.setText(String.valueOf(BigDecimal.valueOf(result).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue()));
+    }
     private void setupEditText() {
         inputNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -69,64 +130,7 @@ public class TemperatureFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                long value = 0;
-                if(!inputNumber.getText().toString().isEmpty()) value = Long.parseLong(inputNumber.getText().toString());
-                UnitConverter fromUnits = null;
-                boolean toConvert = true;
-                float result = 0;
-                switch (inputUnit){
-                    case "K":
-                        switch (outputUnit){
-                            case "K":  {
-                                toConvert = false;
-                                result = value;
-                            }
-                            break;
-                            case "C": {
-                                fromUnits = KELVIN.getConverterTo(CELSIUS);
-                            } break;
-                            case "F": {
-                                fromUnits = KELVIN.getConverterTo(FAHRENHEIT);
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    case "C":
-                        switch (outputUnit){
-                            case "K":  {
-                                fromUnits = CELSIUS.getConverterTo(KELVIN);
-                            }
-                            break;
-                            case "C": {
-                                toConvert = false;
-                                result = value;
-                            } break;
-                            case "F": {
-                                fromUnits = CELSIUS.getConverterTo(FAHRENHEIT);
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    case "F":
-                        switch (outputUnit){
-                            case "K":  {
-                                fromUnits = FAHRENHEIT.getConverterTo(KELVIN);
-                            }
-                            break;
-                            case "C": {
-                                fromUnits = FAHRENHEIT.getConverterTo(CELSIUS);
-                            } break;
-                            case "F": {
-                                toConvert = false;
-                                result = value;
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    default: result = value; break;
-                }
-                if(toConvert) result = (float) fromUnits.convert(value);
-                outputNumber.setText(String.format("%.2f",result));
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
             }
 
             @Override
@@ -149,6 +153,7 @@ public class TemperatureFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 inputUnit = parent.getItemAtPosition(position).toString();
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
                 Toast.makeText(view.getContext(), inputUnit, Toast.LENGTH_SHORT).show();
             }
             @Override
@@ -160,6 +165,7 @@ public class TemperatureFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 outputUnit = parent.getItemAtPosition(position).toString();
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
                 Toast.makeText(view.getContext(), outputUnit, Toast.LENGTH_SHORT).show();
             }
             @Override

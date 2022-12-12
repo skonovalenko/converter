@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import javax.measure.converter.UnitConverter;
@@ -62,6 +63,94 @@ public class WeightFragment extends Fragment {
         setupGroupsSpinner();
         setupEditText();
     }
+    private void textChange() {
+        float value = 0;
+        if(!inputNumber.getText().toString().isEmpty()) value = Float.parseFloat(inputNumber.getText().toString());
+        UnitConverter fromUnits = null;
+        boolean toConvert = true;
+        float result = 0;
+        switch (inputUnit){
+            case "g":
+                switch (outputUnit){
+                    case "g":  {
+                        toConvert = false;
+                        result = value;
+                    }
+                    break;
+                    case "kg": {
+                        fromUnits = GRAM.getConverterTo(KILOGRAM);
+                    } break;
+                    case "ton": {
+                        fromUnits = GRAM.getConverterTo(TON_US);
+                    } break;
+                    case "lb": {
+                        fromUnits = GRAM.getConverterTo(POUND);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "kg":
+                switch (outputUnit){
+                    case "g":  {
+                        fromUnits = KILOGRAM.getConverterTo(GRAM);
+                    }
+                    break;
+                    case "kg": {
+                        toConvert = false;
+                        result = value;
+                    } break;
+                    case "ton": {
+                        fromUnits = KILOGRAM.getConverterTo(TON_US);
+                    } break;
+                    case "lb": {
+                        fromUnits = KILOGRAM.getConverterTo(POUND);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "ton":
+                switch (outputUnit){
+                    case "g":  {
+                        fromUnits = TON_US.getConverterTo(GRAM);
+                    }
+                    break;
+                    case "kg": {
+                        fromUnits = TON_US.getConverterTo(KILOGRAM);
+                    } break;
+                    case "ton": {
+                        toConvert = false;
+                        result = value;
+                    } break;
+                    case "lb": {
+                        fromUnits = TON_US.getConverterTo(POUND);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "lb":
+                switch (outputUnit){
+                    case "g":  {
+                        fromUnits = POUND.getConverterTo(GRAM);
+                    }
+                    break;
+                    case "kg": {
+                        fromUnits = POUND.getConverterTo(KILOGRAM);
+                    } break;
+                    case "ton": {
+                        fromUnits = POUND.getConverterTo(TON_US);
+                    } break;
+                    case "lb": {
+                        toConvert = false;
+                        result = value;
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            default: result = value; break;
+        }
+        if(toConvert) result = (float) fromUnits.convert(value);
+        outputNumber.setText(String.valueOf(BigDecimal.valueOf(result).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue()));
+    }
     private void setupEditText() {
         inputNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -70,92 +159,7 @@ public class WeightFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                long value = 0;
-                if(!inputNumber.getText().toString().isEmpty()) value = Long.parseLong(inputNumber.getText().toString());
-                UnitConverter fromUnits = null;
-                boolean toConvert = true;
-                float result = 0;
-                switch (inputUnit){
-                    case "g":
-                        switch (outputUnit){
-                            case "g":  {
-                                toConvert = false;
-                                result = value;
-                            }
-                            break;
-                            case "kg": {
-                                fromUnits = GRAM.getConverterTo(KILOGRAM);
-                            } break;
-                            case "ton": {
-                                fromUnits = GRAM.getConverterTo(TON_US);
-                            } break;
-                            case "lb": {
-                                fromUnits = GRAM.getConverterTo(POUND);
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    case "kg":
-                        switch (outputUnit){
-                            case "g":  {
-                                fromUnits = KILOGRAM.getConverterTo(GRAM);
-                            }
-                            break;
-                            case "kg": {
-                                toConvert = false;
-                                result = value;
-                            } break;
-                            case "ton": {
-                                fromUnits = KILOGRAM.getConverterTo(TON_US);
-                            } break;
-                            case "lb": {
-                                fromUnits = KILOGRAM.getConverterTo(POUND);
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    case "ton":
-                        switch (outputUnit){
-                            case "g":  {
-                                fromUnits = TON_US.getConverterTo(GRAM);
-                            }
-                            break;
-                            case "kg": {
-                                fromUnits = TON_US.getConverterTo(KILOGRAM);
-                            } break;
-                            case "ton": {
-                                toConvert = false;
-                                result = value;
-                            } break;
-                            case "lb": {
-                                fromUnits = TON_US.getConverterTo(POUND);
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    case "lb":
-                        switch (outputUnit){
-                            case "g":  {
-                                fromUnits = POUND.getConverterTo(GRAM);
-                            }
-                            break;
-                            case "kg": {
-                                fromUnits = POUND.getConverterTo(KILOGRAM);
-                            } break;
-                            case "ton": {
-                                fromUnits = POUND.getConverterTo(TON_US);
-                            } break;
-                            case "lb": {
-                                toConvert = false;
-                                result = value;
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    default: result = value; break;
-                }
-                if(toConvert) result = (float) fromUnits.convert(value);
-                outputNumber.setText(String.format("%.3f",result));
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
             }
 
             @Override
@@ -178,6 +182,7 @@ public class WeightFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 inputUnit = parent.getItemAtPosition(position).toString();
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
                 Toast.makeText(view.getContext(), inputUnit, Toast.LENGTH_SHORT).show();
             }
             @Override
@@ -189,6 +194,7 @@ public class WeightFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 outputUnit = parent.getItemAtPosition(position).toString();
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
                 Toast.makeText(view.getContext(), outputUnit, Toast.LENGTH_SHORT).show();
             }
             @Override

@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import javax.measure.Measure;
@@ -53,6 +54,213 @@ public class LengthFragment extends Fragment {
         setupGroupsSpinner();
         setupEditText();
     }
+    private void textChange() {
+        float value = 0;
+        if(!inputNumber.getText().toString().isEmpty()) value = Float.parseFloat(inputNumber.getText().toString());
+        UnitConverter fromUnits = null;
+        boolean toConvert = true;
+        float result = 0;
+        switch (inputUnit){
+            case "sm":
+                switch (outputUnit){
+                    case "sm":  {
+                        toConvert = false;
+                        result = value;
+                    }
+                    break;
+                    case "m": {
+                        fromUnits = CENTIMETER.getConverterTo(METER);
+                    } break;
+                    case "km": {
+                        fromUnits = CENTIMETER.getConverterTo(KILOMETER);
+                    } break;
+                    case "in": {
+                        fromUnits = CENTIMETER.getConverterTo(INCH);
+                    } break;
+                    case "mi": {
+                        fromUnits = CENTIMETER.getConverterTo(MILE);
+                    } break;
+                    case "yd": {
+                        fromUnits = CENTIMETER.getConverterTo(YARD);
+                    } break;
+                    case "ft": {
+                        fromUnits = CENTIMETER.getConverterTo(FOOT);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "m":
+                switch (outputUnit){
+                    case "sm":  {
+                        fromUnits = METER.getConverterTo(CENTIMETER);
+                    }
+                    break;
+                    case "m": {
+                        toConvert = false;
+                        result = value;
+                    } break;
+                    case "km": {
+                        fromUnits = METER.getConverterTo(KILOMETER);
+                    } break;
+                    case "in": {
+                        fromUnits = METER.getConverterTo(INCH);
+                    } break;
+                    case "mi": {
+                        fromUnits = METER.getConverterTo(MILE);
+                    } break;
+                    case "yd": {
+                        fromUnits = METER.getConverterTo(YARD);
+                    } break;
+                    case "ft": {
+                        fromUnits = METER.getConverterTo(FOOT);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "km":
+                switch (outputUnit){
+                    case "sm":  {
+                        fromUnits = KILOMETER.getConverterTo(CENTIMETER);
+                    }
+                    break;
+                    case "m": {
+                        fromUnits = KILOMETER.getConverterTo(METER);
+                    } break;
+                    case "km": {
+                        toConvert = false;
+                        result = value;
+                    } break;
+                    case "in": {
+                        fromUnits = KILOMETER.getConverterTo(INCH);
+                    } break;
+                    case "mi": {
+                        fromUnits = KILOMETER.getConverterTo(MILE);
+                    } break;
+                    case "yd": {
+                        fromUnits = KILOMETER.getConverterTo(YARD);
+                    } break;
+                    case "ft": {
+                        fromUnits = KILOMETER.getConverterTo(FOOT);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "in":
+                switch (outputUnit){
+                    case "sm":  {
+                        fromUnits = INCH.getConverterTo(CENTIMETER);
+                    }
+                    break;
+                    case "m": {
+                        fromUnits = INCH.getConverterTo(METER);
+                    } break;
+                    case "km": {
+                        fromUnits = INCH.getConverterTo(KILOMETER);
+                    } break;
+                    case "in": {
+                        toConvert = false;
+                        result = value;
+                    } break;
+                    case "mi": {
+                        fromUnits = INCH.getConverterTo(MILE);
+                    } break;
+                    case "yd": {
+                        fromUnits = INCH.getConverterTo(YARD);
+                    } break;
+                    case "ft": {
+                        fromUnits = INCH.getConverterTo(FOOT);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "mi":
+                switch (outputUnit){
+                    case "sm":  {
+                        fromUnits = MILE.getConverterTo(CENTIMETER);
+                    }
+                    break;
+                    case "m": {
+                        fromUnits = MILE.getConverterTo(METER);
+                    } break;
+                    case "km": {
+                        fromUnits = MILE.getConverterTo(KILOMETER);
+                    } break;
+                    case "in": {
+                        fromUnits = MILE.getConverterTo(INCH);
+                    } break;
+                    case "mi": {
+                        toConvert = false;
+                        result = value;
+                    } break;
+                    case "yd": {
+                        fromUnits = MILE.getConverterTo(YARD);
+                    } break;
+                    case "ft": {
+                        fromUnits = MILE.getConverterTo(FOOT);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "yd":
+                switch (outputUnit){
+                    case "sm":  {
+                        fromUnits = YARD.getConverterTo(CENTIMETER);
+                    }
+                    break;
+                    case "m": {
+                        fromUnits = YARD.getConverterTo(METER);
+                    } break;
+                    case "km": {
+                        fromUnits = YARD.getConverterTo(METER);
+                    } break;
+                    case "in": {
+                        fromUnits = YARD.getConverterTo(INCH);
+                    } break;
+                    case "mi": {
+                        fromUnits = YARD.getConverterTo(MILE);
+                    } break;
+                    case "yd": {
+                        toConvert = false;
+                        result = value;
+                    } break;
+                    case "ft": {
+                        fromUnits = YARD.getConverterTo(FOOT);
+                    } break;
+                    default: result = value; break;
+                }
+                break;
+            case "ft": switch (outputUnit){
+                case "sm":  {
+                    fromUnits = FOOT.getConverterTo(CENTIMETER);
+                }
+                break;
+                case "m": {
+                    fromUnits = FOOT.getConverterTo(METER);
+                } break;
+                case "km": {
+                    fromUnits = FOOT.getConverterTo(KILOMETER);
+                } break;
+                case "in": {
+                    fromUnits = FOOT.getConverterTo(INCH);
+                } break;
+                case "mi": {
+                    fromUnits = FOOT.getConverterTo(MILE);
+                } break;
+                case "yd": {
+                    fromUnits = FOOT.getConverterTo(YARD);
+                } break;
+                case "ft": {
+                    toConvert = false;
+                    result = value;
+                } break;
+                default: result = value; break;
+            }
+                break;
+            default: result = value; break;
+        }
+        if(toConvert) result = (float) fromUnits.convert(value);
+        outputNumber.setText(String.valueOf(BigDecimal.valueOf(result).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue()));
+    }
     private void setupEditText() {
         inputNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -61,211 +269,7 @@ public class LengthFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                long value = 0;
-                if(!inputNumber.getText().toString().isEmpty()) value = Long.parseLong(inputNumber.getText().toString());
-                UnitConverter fromUnits = null;
-                boolean toConvert = true;
-                float result = 0;
-                switch (inputUnit){
-                    case "sm":
-                        switch (outputUnit){
-                            case "sm":  {
-                                toConvert = false;
-                                result = value;
-                            }
-                            break;
-                            case "m": {
-                                fromUnits = CENTIMETER.getConverterTo(METER);
-                            } break;
-                            case "km": {
-                                fromUnits = CENTIMETER.getConverterTo(KILOMETER);
-                            } break;
-                            case "in": {
-                                fromUnits = CENTIMETER.getConverterTo(INCH);
-                            } break;
-                            case "mi": {
-                                fromUnits = CENTIMETER.getConverterTo(MILE);
-                            } break;
-                            case "yd": {
-                                fromUnits = CENTIMETER.getConverterTo(YARD);
-                            } break;
-                            case "foor": {
-                                fromUnits = CENTIMETER.getConverterTo(FOOT);
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    case "m":
-                        switch (outputUnit){
-                        case "sm":  {
-                            fromUnits = METER.getConverterTo(CENTIMETER);
-                        }
-                        break;
-                        case "m": {
-                            toConvert = false;
-                            result = value;
-                        } break;
-                        case "km": {
-                            fromUnits = METER.getConverterTo(KILOMETER);
-                        } break;
-                        case "in": {
-                            fromUnits = METER.getConverterTo(INCH);
-                        } break;
-                        case "mi": {
-                            fromUnits = METER.getConverterTo(MILE);
-                        } break;
-                        case "yd": {
-                            fromUnits = METER.getConverterTo(YARD);
-                        } break;
-                        case "foor": {
-                            fromUnits = METER.getConverterTo(FOOT);
-                        } break;
-                        default: result = value; break;
-                    }
-                        break;
-                    case "km":
-                        switch (outputUnit){
-                        case "sm":  {
-                            fromUnits = KILOMETER.getConverterTo(CENTIMETER);
-                        }
-                        break;
-                        case "m": {
-                            fromUnits = KILOMETER.getConverterTo(METER);
-                        } break;
-                        case "km": {
-                            toConvert = false;
-                            result = value;
-                        } break;
-                        case "in": {
-                            fromUnits = KILOMETER.getConverterTo(INCH);
-                        } break;
-                        case "mi": {
-                            fromUnits = KILOMETER.getConverterTo(MILE);
-                        } break;
-                        case "yd": {
-                            fromUnits = KILOMETER.getConverterTo(YARD);
-                        } break;
-                        case "foor": {
-                            fromUnits = KILOMETER.getConverterTo(FOOT);
-                        } break;
-                        default: result = value; break;
-                    }
-                        break;
-                    case "in":
-                        switch (outputUnit){
-                            case "sm":  {
-                                fromUnits = INCH.getConverterTo(CENTIMETER);
-                            }
-                            break;
-                            case "m": {
-                                fromUnits = INCH.getConverterTo(METER);
-                            } break;
-                            case "km": {
-                                fromUnits = INCH.getConverterTo(KILOMETER);
-                            } break;
-                            case "in": {
-                                toConvert = false;
-                                result = value;
-                            } break;
-                            case "mi": {
-                                fromUnits = INCH.getConverterTo(MILE);
-                            } break;
-                            case "yd": {
-                                fromUnits = INCH.getConverterTo(YARD);
-                            } break;
-                            case "foor": {
-                                fromUnits = INCH.getConverterTo(FOOT);
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    case "mi":
-                        switch (outputUnit){
-                            case "sm":  {
-                                fromUnits = MILE.getConverterTo(CENTIMETER);
-                            }
-                            break;
-                            case "m": {
-                                fromUnits = MILE.getConverterTo(METER);
-                            } break;
-                            case "km": {
-                                fromUnits = MILE.getConverterTo(KILOMETER);
-                            } break;
-                            case "in": {
-                                fromUnits = MILE.getConverterTo(INCH);
-                            } break;
-                            case "mi": {
-                                toConvert = false;
-                                result = value;
-                            } break;
-                            case "yd": {
-                                fromUnits = MILE.getConverterTo(YARD);
-                            } break;
-                            case "foor": {
-                                fromUnits = MILE.getConverterTo(FOOT);
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    case "yd":
-                        switch (outputUnit){
-                            case "sm":  {
-                                fromUnits = YARD.getConverterTo(CENTIMETER);
-                            }
-                            break;
-                            case "m": {
-                                fromUnits = YARD.getConverterTo(METER);
-                            } break;
-                            case "km": {
-                                fromUnits = YARD.getConverterTo(METER);
-                            } break;
-                            case "in": {
-                                fromUnits = YARD.getConverterTo(INCH);
-                            } break;
-                            case "mi": {
-                                fromUnits = YARD.getConverterTo(MILE);
-                            } break;
-                            case "yd": {
-                                toConvert = false;
-                                result = value;
-                            } break;
-                            case "foor": {
-                                fromUnits = YARD.getConverterTo(FOOT);
-                            } break;
-                            default: result = value; break;
-                        }
-                        break;
-                    case "foor": switch (outputUnit){
-                        case "sm":  {
-                            fromUnits = FOOT.getConverterTo(CENTIMETER);
-                        }
-                        break;
-                        case "m": {
-                            fromUnits = FOOT.getConverterTo(METER);
-                        } break;
-                        case "km": {
-                            fromUnits = FOOT.getConverterTo(KILOMETER);
-                        } break;
-                        case "in": {
-                            fromUnits = FOOT.getConverterTo(INCH);
-                        } break;
-                        case "mi": {
-                            fromUnits = FOOT.getConverterTo(MILE);
-                        } break;
-                        case "yd": {
-                            fromUnits = FOOT.getConverterTo(YARD);
-                        } break;
-                        case "foor": {
-                            toConvert = false;
-                            result = value;
-                        } break;
-                        default: result = value; break;
-                    }
-                        break;
-                    default: result = value; break;
-                }
-                if(toConvert) result = (float) fromUnits.convert(value);
-                outputNumber.setText(String.format("%.3f",result));
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
             }
 
             @Override
@@ -287,6 +291,7 @@ public class LengthFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 inputUnit = parent.getItemAtPosition(position).toString();
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
                 Toast.makeText(view.getContext(), inputUnit, Toast.LENGTH_SHORT).show();
             }
             @Override
@@ -297,6 +302,7 @@ public class LengthFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 outputUnit = parent.getItemAtPosition(position).toString();
+                if(!inputNumber.getText().toString().isEmpty()) textChange();
                 Toast.makeText(view.getContext(), outputUnit, Toast.LENGTH_SHORT).show();
             }
             @Override
